@@ -1,0 +1,42 @@
+plugins:
+  avakhov:
+    - vim-yaml
+  bbommarito:
+    - vim-slim
+  godlygeek:
+    - tabular
+  jinfield:
+    - vim-nginx
+  kchmck:
+    - vim-coffee-script
+  kreeger:
+    - vim-slim
+  mileszs:
+    - ack.vim
+  nono:
+    - vim-handlebars
+  rodjek:
+    - vim-puppet
+  scrooloose:
+    - nerdtree
+    - syntastic
+  tangledhelix:
+    - vim-octopress
+  tpope:
+    - vim-endwise
+    - vim-eunuch
+    - vim-fugitive
+    - vim-git
+    - vim-haml
+    - vim-markdown
+    - vim-rails
+    - vim-surround
+  tsaleh:
+    - vim-supertab
+  vim-ruby:
+    - vim-ruby
+  vim-scripts:
+    - Color-Sampler-Pack
+    - Conque-Shell
+  wincent:
+    - Command-T

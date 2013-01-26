@@ -1,0 +1,7 @@
+{
+    "word_wrap": true,
+    "rulers": [80],
+    "sublimelinter": true,
+    "tab_size": 4,
+    "ensure_newline_at_eof_on_save": true
+}

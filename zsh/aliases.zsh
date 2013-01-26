@@ -1,0 +1,10 @@
+alias please='sudo'
+alias ls='ls -FlaGh'
+alias mkdir='mkdir -p'
+alias resource='source ~/.zshrc'
+alias m='subl'
+alias s='subl'
+
+alias uu='cd ~/Code/universal-uclick'
+alias kreeger='cd ~/Code/kreeger'
+alias ftw='cd ~/Code/ftw'

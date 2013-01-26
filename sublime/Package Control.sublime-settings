@@ -1,0 +1,30 @@
+{
+	"auto_upgrade_last_run": null,
+	"installed_packages":
+	[
+		"Alignment",
+		"ApacheConf.tmLanguage",
+		"BeautifyRuby",
+		"CoffeeScript",
+		"EJS",
+		"FileDiffs",
+		"Gist",
+		"Git",
+		"objc .strings syntax language",
+		"Package Control",
+		"Pretty JSON",
+		"Rails Related Files",
+		"RSpec",
+		"Ruby Slim",
+		"SASS",
+		"Sass",
+		"SCSS",
+		"SideBarEnhancements",
+		"SmartMarkdown",
+		"SublimeBlockCursor",
+		"SublimeLinter",
+		"Theme - Soda",
+		"Tomorrow Color Schemes",
+		"VintageEx"
+	]
+}

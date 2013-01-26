@@ -1,0 +1,6 @@
+plugins:
+  abrookins:
+    "WrapCode": "WrapCode"
+    "GotoLastEdit": "GotoLastEdit"
+  buymeasoda:
+    "soda-theme": "Theme - Soda"

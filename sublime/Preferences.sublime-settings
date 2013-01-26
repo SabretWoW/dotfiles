@@ -1,0 +1,41 @@
+{
+	"caret_style": "phase",
+	"color_scheme": "Packages/Color Scheme - Default/Twilight.tmTheme",
+	"detect_slow_plugins": false,
+	"draw_minimap_border": true,
+	"draw_white_space": "selection",
+	"ensure_newline_at_eof_on_save": true,
+	"find_selected_text": true,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		".sass-cache",
+		".bundle"
+	],
+	"font_face": "Inconsolata-dz for Powerline",
+	"font_size": 12.0,
+	"highlight_active_indent_guide": true,
+	"highlight_line": true,
+	"hot_exit": false,
+	"ignored_packages":
+	[
+		"SublimeBlockCursor",
+		"GotoLastEdit",
+		"Gist",
+		"BeautifyRuby"
+	],
+	"remember_open_files": false,
+	"rulers":
+	[
+		100
+	],
+	"scroll_past_end": true,
+	"tab_completion": true,
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": false,
+	"vintage_start_in_command_mode": true
+}

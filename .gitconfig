@@ -1,0 +1,15 @@
+[user]
+  name = Ben Kreeger
+  email = ben@kree.gr
+
+[core]
+  excludesfile = ~/.gitignore.global
+
+[color]
+  ui = true
+
+[github]
+  user = kreeger
+
+[push]
+  default = matching

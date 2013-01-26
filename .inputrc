@@ -1,0 +1,2 @@
+"\e[D": backward-word 
+"\e[C": forward-word 

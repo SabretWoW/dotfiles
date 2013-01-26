@@ -1,0 +1,8 @@
+[
+    { "keys": ["f7"], "command": "git_checkout" },
+    { "keys": ["f8"], "command": "git_status" },
+    { "keys": ["f9"], "command": "git_add" },
+    { "keys": ["f10"], "command": "git_commit" },
+    { "keys": ["f11"], "command": "git_push" },
+    { "keys": ["f12"], "command": "git_blame" }
+]
