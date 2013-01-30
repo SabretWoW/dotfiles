@@ -25,7 +25,8 @@
 		"SublimeBlockCursor",
 		"GotoLastEdit",
 		"Gist",
-		"BeautifyRuby"
+		"BeautifyRuby",
+		"SublimeLinter"
 	],
 	"remember_open_files": false,
 	"rulers":

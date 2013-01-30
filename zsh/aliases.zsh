@@ -3,7 +3,7 @@ alias ls='ls -FlaGh'
 alias mkdir='mkdir -p'
 alias resource='source ~/.zshrc'
 alias m='subl'
-alias s='subl'
+alias s='subl3'
 alias gs='gst'
 
 alias uu='cd ~/Code/universal-uclick'

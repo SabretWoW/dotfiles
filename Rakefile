@@ -15,8 +15,11 @@ require 'debugger'
     colors: File.join(@home, '.vim', 'colors'),
     syntax: File.join(@home, '.vim', 'syntax'),
   },
-  sublime: {
+  sublime2: {
     osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 2', 'Packages'),
+  },
+  sublime3: {
+    osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 3', 'Packages'),
   },
   zsh: {
     scripts: File.join(@home, '.oh-my-zsh', 'custom'),
@@ -118,33 +121,64 @@ namespace :vim do
   end
 end
 
-desc 'Run all sublime tasks.'
-task sublime: 'sublime:all'
+desc 'Run all sublime 2 tasks.'
+task sublime2: 'sublime2:all'
 
-namespace :sublime do
+namespace :sublime2 do
   task all: [:plugins, :settings]
 
   # This is nearly identical to my Vim plugin installer; maybe abstract?
-  desc 'Install non-PackageManager plugins.'
-  task plugins: @dirs[:sublime][:osx] do
+  desc 'Install non-PackageManager plugins for sublime 2.'
+  task plugins: @dirs[:sublime2][:osx] do
     puts "Cloning extra plugins for Sublime Text 2."
     plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
-    Dir.chdir(@dirs[:sublime][:osx])
+    Dir.chdir(@dirs[:sublime2][:osx])
     plugins.each do |author, repos|
       Array(repos).each do |repo|
         manage_git "https://github.com/#{author}/#{repo[0]}",
-                   File.join(@dirs[:sublime][:osx], repo[1])
+                   File.join(@dirs[:sublime2][:osx], repo[1])
       end
     end
   end
 
-  desc 'Symlink sublime settings.'
-  task settings: File.join(@dirs[:sublime][:osx], 'User') do
-    puts "Symlinking sublime settings files."
+  desc 'Symlink sublime 2 settings.'
+  task settings: File.join(@dirs[:sublime2][:osx], 'User') do
+    puts "Symlinking sublime 2 settings files."
     Dir.chdir File.join(@dir, 'sublime')
     Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
       link_file File.expand_path(f),
-                File.join(@dirs[:sublime][:osx], 'User', f)
+                File.join(@dirs[:sublime2][:osx], 'User', f)
+    end
+  end
+end
+
+desc 'Run all sublime 3 tasks.'
+task sublime3: 'sublime3:all'
+
+namespace :sublime3 do
+  task all: [:plugins, :settings]
+
+  # This is nearly identical to my Vim plugin installer; maybe abstract?
+  desc 'Install non-PackageManager plugins for sublime 3.'
+  task plugins: @dirs[:sublime3][:osx] do
+    puts "Cloning extra plugins for Sublime Text 3."
+    plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
+    Dir.chdir(@dirs[:sublime3][:osx])
+    plugins.each do |author, repos|
+      Array(repos).each do |repo|
+        manage_git "https://github.com/#{author}/#{repo[0]}",
+                   File.join(@dirs[:sublime3][:osx], repo[1])
+      end
+    end
+  end
+
+  desc 'Symlink sublime 3 settings.'
+  task settings: File.join(@dirs[:sublime3][:osx], 'User') do
+    puts "Symlinking sublime 3 settings files."
+    Dir.chdir File.join(@dir, 'sublime')
+    Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
+      link_file File.expand_path(f),
+                File.join(@dirs[:sublime3][:osx], 'User', f)
     end
   end
 end
