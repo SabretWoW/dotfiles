@@ -1,16 +1,14 @@
 plugins:
   avakhov:
     - vim-yaml
-  bbommarito:
-    - vim-slim
   godlygeek:
     - tabular
   jinfield:
     - vim-nginx
+  jnwhiteh:
+    - vim-golang
   kchmck:
     - vim-coffee-script
-  kreeger:
-    - vim-slim
   mileszs:
     - ack.vim
   nono:
@@ -20,8 +18,8 @@ plugins:
   scrooloose:
     - nerdtree
     - syntastic
-  tangledhelix:
-    - vim-octopress
+  slim-template:
+    - vim-slim
   tpope:
     - vim-endwise
     - vim-eunuch
@@ -35,8 +33,5 @@ plugins:
     - vim-supertab
   vim-ruby:
     - vim-ruby
-  vim-scripts:
-    - Color-Sampler-Pack
-    - Conque-Shell
   wincent:
     - Command-T

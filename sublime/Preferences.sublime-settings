@@ -13,7 +13,9 @@
 		".hg",
 		"CVS",
 		".sass-cache",
-		".bundle"
+		".idea",
+		".bundle",
+		".yardoc"
 	],
 	"font_face": "Inconsolata-dz for Powerline",
 	"font_size": 12.0,

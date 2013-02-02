@@ -89,7 +89,7 @@ namespace :vim do
     Dir.chdir(@dirs[:vim][:bundle])
     plugins.each do |author,repos|
       Array(repos).each do |repo|
-        manage_git "https://github.com/#{author}/#{repo}",
+        manage_git "git://github.com/#{author}/#{repo}",
                    File.join(@dirs[:vim][:bundle], repo)
       end
     end
