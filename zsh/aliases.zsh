@@ -11,4 +11,4 @@ alias kreeger='cd ~/Code/kreeger'
 alias ftw='cd ~/Code/ftw'
 alias fs='foreman start'
 
-alias bz2='tar cvjf'
+alias bz2='tar --exclude ".git/" -cvjf'
