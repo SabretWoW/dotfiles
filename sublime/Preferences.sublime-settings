@@ -24,11 +24,10 @@
 	"hot_exit": false,
 	"ignored_packages":
 	[
-		"SublimeBlockCursor",
-		"GotoLastEdit",
 		"Gist",
 		"BeautifyRuby",
-		"SublimeLinter"
+		"SublimeBlockCursor",
+		"GotoLastEdit"
 	],
 	"remember_open_files": false,
 	"rulers":
