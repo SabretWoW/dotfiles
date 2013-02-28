@@ -1,10 +1,11 @@
-set guifont=Inconsolata\ for\ Powerline:h12
+set guifont=Inconsolata\ for\ Powerline:h14
 
 if has('gui_macvim')
   " Please don't beep.
   set visualbell
 
   set clipboard=unnamed
+  set lsp=2
 
   set transparency=5
   " Also, axe that toolbar.

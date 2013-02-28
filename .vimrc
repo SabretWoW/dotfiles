@@ -46,7 +46,8 @@ if filereadable(expand('~/.vim/scripts/vundle.vim'))
 endif
 
 " NERDTree options
-let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$']
+let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$', '\.git$', '\.bundle$']
+let NERDTreeShowHidden=1
 " Leader-n toggles NERDTree
 map <Leader>n :NERDTreeToggle<CR>
 let NERDTreeMouseMode=3
