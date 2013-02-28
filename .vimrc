@@ -1,8 +1,9 @@
 " Turn off vi-compatibility mode.
 set nocompatible
+filetype off
 
-" First order of business: load pathogen
-call pathogen#infect()
+" Redefine the leader.
+let mapleader=","
 
 " Set some visual options
 syntax on
@@ -31,6 +32,14 @@ set smartcase " Consider case when ALL CAPS.
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+if filereadable(expand('~/.vim/scripts/vundle.vim'))
+  source ~/.vim/scripts/vundle.vim
+endif
+
 " NERDTree options
 let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$']
 " Backslash-n toggles NERDTree
@@ -50,7 +59,7 @@ endfunction
 " Filetype mappings
 
 " Gemfile/Rakefile/etc is Ruby
-autocmd BufRead,BufNewFile {Gemfile,Rakefile,Thorfile,Vagrantfile,config.ru,*.rabl} set ft=ruby
+autocmd BufRead,BufNewFile {Podfile,Gemfile,Rakefile,Thorfile,Vagrantfile,config.ru,*.rabl} set ft=ruby
 autocmd BufRead,BufNewFile *.{jsonify,builder,rabl} set ft=ruby
 
 " Custom text-wrapping options for filetypes
@@ -91,5 +100,3 @@ map <F10> :Gcommit<CR>
 map <F11> :Git push<CR>
 map <F12> :Gblame<CR>
 
-" Status line visuals.
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P

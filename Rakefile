@@ -1,5 +1,4 @@
 require 'fileutils'
-require 'debugger'
 ['pp','yaml'].each { |l| require l }
 
 # Some helpful instance variables.
@@ -9,18 +8,16 @@ require 'debugger'
 @dirs = {
   vim: {
     bundle: File.join(@home, '.vim', 'bundle'),
-    autoload: File.join(@home, '.vim', 'autoload'),
     backup: File.join(@home, '.vim', 'backup'),
     scripts: File.join(@home, '.vim', 'scripts'),
     colors: File.join(@home, '.vim', 'colors'),
-    syntax: File.join(@home, '.vim', 'syntax'),
   },
-  sublime2: {
-    osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 2', 'Packages'),
-  },
-  sublime3: {
-    osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 3', 'Packages'),
-  },
+  # sublime2: {
+  #   osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 2', 'Packages'),
+  # },
+  # sublime3: {
+  #   osx: File.join(@home, 'Library', 'Application Support', 'Sublime Text 3', 'Packages'),
+  # },
   zsh: {
     scripts: File.join(@home, '.oh-my-zsh', 'custom'),
     themes: File.join(@home, '.oh-my-zsh', 'themes'),
@@ -36,18 +33,12 @@ require 'debugger'
 }
 
 @urls = {
-  pathogen: 'https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim',
   ohmyzsh: 'https://github.com/robbyrussell/oh-my-zsh',
   benlight: 'https://raw.github.com/gist/1481851',
   rbenv: {
     rbenv: 'https://github.com/sstephenson/rbenv',
     rubybuild: 'https://github.com/sstephenson/ruby-build',
   },
-}
-
-@syntaxes = {
-  jinja: 'http://www.vim.org/scripts/download_script.php?src_id=8666',
-  htmljinja: 'http://www.vim.org/scripts/download_script.php?src_id=6961',
 }
 
 # Directory setup declarations.
@@ -74,25 +65,14 @@ desc 'Run all vim tasks.'
 task vim: 'vim:all'
 
 namespace :vim do
-  task all: [:pathogen, :plugins, :scripts, :colors]
+  task all: [:vundle, :plugins, :scripts, :colors]
 
   desc 'Sets up Vim.'
-  task pathogen: [@dirs[:vim][:autoload], @dirs[:vim][:backup]] do
-    puts "Installing Pathogen."
-    destination = File.join(@dirs[:vim][:autoload], 'pathogen.vim')
-    `curl -so #{destination} #{@urls[:pathogen]}`
-  end
-
-  desc 'Installs or updates all vim plugins from vim.yml.'
-  task plugins: @dirs[:vim][:bundle] do
-    plugins = load_yaml(File.join(@dir, 'vim.yml'), :plugins)
-    Dir.chdir(@dirs[:vim][:bundle])
-    plugins.each do |author,repos|
-      Array(repos).each do |repo|
-        manage_git "git://github.com/#{author}/#{repo}",
-                   File.join(@dirs[:vim][:bundle], repo)
-      end
-    end
+  task vundle: [@dirs[:vim][:bundle], @dirs[:vim][:backup]] do
+    puts "Installing Vundle."
+    manage_git "git://github.com/gmarik/vundle.git",
+               File.join(@dirs[:vim][:bundle], 'vundle')
+    `vim +BundleInstall +qall`
   end
 
   desc 'Installs all scripts from the vim directory.'
@@ -110,78 +90,69 @@ namespace :vim do
     destination = File.join(@dirs[:vim][:colors], 'benlight.vim')
     `curl -sko #{destination} #{@urls[:benlight]}`
   end
-
-  desc 'Installs more vim syntaxes.'
-  task syntax: @dirs[:vim][:syntax] do
-    puts "Installing extra Vim syntax files."
-    Dir.chdir @dirs[:vim][:syntax]
-    @syntaxes.each do |file, syn|
-      `curl -sko #{file}.vim #{syn}`
-    end
-  end
 end
 
 desc 'Run all sublime 2 tasks.'
 task sublime2: 'sublime2:all'
 
-namespace :sublime2 do
-  task all: [:plugins, :settings]
+# namespace :sublime2 do
+#   task all: [:plugins, :settings]
+#
+#   # This is nearly identical to my Vim plugin installer; maybe abstract?
+#   desc 'Install non-PackageManager plugins for sublime 2.'
+#   task plugins: @dirs[:sublime2][:osx] do
+#     puts "Cloning extra plugins for Sublime Text 2."
+#     plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
+#     Dir.chdir(@dirs[:sublime2][:osx])
+#     plugins.each do |author, repos|
+#       Array(repos).each do |repo|
+#         manage_git "https://github.com/#{author}/#{repo[0]}",
+#                    File.join(@dirs[:sublime2][:osx], repo[1])
+#       end
+#     end
+#   end
+#
+#   desc 'Symlink sublime 2 settings.'
+#   task settings: File.join(@dirs[:sublime2][:osx], 'User') do
+#     puts "Symlinking sublime 2 settings files."
+#     Dir.chdir File.join(@dir, 'sublime')
+#     Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
+#       link_file File.expand_path(f),
+#                 File.join(@dirs[:sublime2][:osx], 'User', f)
+#     end
+#   end
+# end
 
-  # This is nearly identical to my Vim plugin installer; maybe abstract?
-  desc 'Install non-PackageManager plugins for sublime 2.'
-  task plugins: @dirs[:sublime2][:osx] do
-    puts "Cloning extra plugins for Sublime Text 2."
-    plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
-    Dir.chdir(@dirs[:sublime2][:osx])
-    plugins.each do |author, repos|
-      Array(repos).each do |repo|
-        manage_git "https://github.com/#{author}/#{repo[0]}",
-                   File.join(@dirs[:sublime2][:osx], repo[1])
-      end
-    end
-  end
-
-  desc 'Symlink sublime 2 settings.'
-  task settings: File.join(@dirs[:sublime2][:osx], 'User') do
-    puts "Symlinking sublime 2 settings files."
-    Dir.chdir File.join(@dir, 'sublime')
-    Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
-      link_file File.expand_path(f),
-                File.join(@dirs[:sublime2][:osx], 'User', f)
-    end
-  end
-end
-
-desc 'Run all sublime 3 tasks.'
-task sublime3: 'sublime3:all'
-
-namespace :sublime3 do
-  task all: [:plugins, :settings]
-
-  # This is nearly identical to my Vim plugin installer; maybe abstract?
-  desc 'Install non-PackageManager plugins for sublime 3.'
-  task plugins: @dirs[:sublime3][:osx] do
-    puts "Cloning extra plugins for Sublime Text 3."
-    plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
-    Dir.chdir(@dirs[:sublime3][:osx])
-    plugins.each do |author, repos|
-      Array(repos).each do |repo|
-        manage_git "https://github.com/#{author}/#{repo[0]}",
-                   File.join(@dirs[:sublime3][:osx], repo[1])
-      end
-    end
-  end
-
-  desc 'Symlink sublime 3 settings.'
-  task settings: File.join(@dirs[:sublime3][:osx], 'User') do
-    puts "Symlinking sublime 3 settings files."
-    Dir.chdir File.join(@dir, 'sublime')
-    Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
-      link_file File.expand_path(f),
-                File.join(@dirs[:sublime3][:osx], 'User', f)
-    end
-  end
-end
+# desc 'Run all sublime 3 tasks.'
+# task sublime3: 'sublime3:all'
+#
+# namespace :sublime3 do
+#   task all: [:plugins, :settings]
+#
+#   # This is nearly identical to my Vim plugin installer; maybe abstract?
+#   desc 'Install non-PackageManager plugins for sublime 3.'
+#   task plugins: @dirs[:sublime3][:osx] do
+#     puts "Cloning extra plugins for Sublime Text 3."
+#     plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
+#     Dir.chdir(@dirs[:sublime3][:osx])
+#     plugins.each do |author, repos|
+#       Array(repos).each do |repo|
+#         manage_git "https://github.com/#{author}/#{repo[0]}",
+#                    File.join(@dirs[:sublime3][:osx], repo[1])
+#       end
+#     end
+#   end
+#
+#   desc 'Symlink sublime 3 settings.'
+#   task settings: File.join(@dirs[:sublime3][:osx], 'User') do
+#     puts "Symlinking sublime 3 settings files."
+#     Dir.chdir File.join(@dir, 'sublime')
+#     Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
+#       link_file File.expand_path(f),
+#                 File.join(@dirs[:sublime3][:osx], 'User', f)
+#     end
+#   end
+# end
 
 # Zsh tasks.
 

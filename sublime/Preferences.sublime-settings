@@ -24,10 +24,9 @@
 	"hot_exit": false,
 	"ignored_packages":
 	[
-		"Gist",
 		"BeautifyRuby",
 		"SublimeBlockCursor",
-		"GotoLastEdit"
+		"Gist"
 	],
 	"remember_open_files": false,
 	"rulers":
@@ -39,5 +38,6 @@
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
-	"vintage_start_in_command_mode": true
+	"vintage_start_in_command_mode": true,
+	"word_wrap": true
 }
