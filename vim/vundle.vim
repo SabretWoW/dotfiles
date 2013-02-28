@@ -1,2 +1,6 @@
-Bundle 'Lokaltog/powerline'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'kien/ctrlp.vim.git'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'

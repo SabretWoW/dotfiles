@@ -1,4 +1,4 @@
-set guifont=Inconsolata-dz\ for\ Powerline:h12
+set guifont=Inconsolata\ for\ Powerline:h12
 
 if has('gui_macvim')
   " Please don't beep.
@@ -38,6 +38,6 @@ if has('gui_macvim')
 endif
 
 " Load extra scripts, too.
-" if filereadable(expand('~/.vim/scripts/nerdtree.vim'))
-"   source ~/.vim/scripts/nerdtree.vim
-" endif
+if filereadable(expand('~/.vim/scripts/nerdtree.vim'))
+  source ~/.vim/scripts/nerdtree.vim
+endif

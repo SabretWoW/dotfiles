@@ -32,6 +32,11 @@ set smartcase " Consider case when ALL CAPS.
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
+" This is for 256-color mode
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
+
 " Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -42,12 +47,9 @@ endif
 
 " NERDTree options
 let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$']
-" Backslash-n toggles NERDTree
+" Leader-n toggles NERDTree
 map <Leader>n :NERDTreeToggle<CR>
 let NERDTreeMouseMode=3
-
-" Command-T config
-let g:CommandTMaxHeight=20 " Set maximum height of go-to-file window.
 
 " Special settings for Markdown.
 function s:setWrapping()
@@ -82,6 +84,9 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
 
+" Powerline options.
+let g:Powerline_symbols = 'fancy'
+
 " Mac OS X options.
 set clipboard=unnamed
 let macvim_hig_shift_movement = 1
@@ -91,6 +96,15 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
 " A few other conveniences.
+" Ctrl-C pops out of insert mode.
+cnoremap <C-c> <Esc>
+
+" For Ctrl-P!
+nmap ; :CtrlPBuffer<CR>
+
+map <Leader>wq :wq<CR>
+map <Leader>q :q!<CR>
+
 map <F3> :vsplit<CR>
 map <F4> :nohl<CR>
 map <F7> :Gread<CR>

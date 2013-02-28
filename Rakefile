@@ -2,7 +2,6 @@ require 'fileutils'
 ['pp','yaml'].each { |l| require l }
 
 # Some helpful instance variables.
-
 @home = File.expand_path "~"
 @dir = File.expand_path(File.dirname(__FILE__))
 @dirs = {
