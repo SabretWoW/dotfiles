@@ -65,14 +65,14 @@ desc 'Run all vim tasks.'
 task vim: 'vim:all'
 
 namespace :vim do
-  task all: [:vundle, :plugins, :scripts, :colors]
+  task all: [:vundle, :scripts, :colors]
 
   desc 'Sets up Vim.'
-  task vundle: [@dirs[:vim][:bundle], @dirs[:vim][:backup]] do
+  task vundle: [:scripts, @dirs[:vim][:bundle], @dirs[:vim][:backup]] do
     puts "Installing Vundle."
     manage_git "git://github.com/gmarik/vundle.git",
                File.join(@dirs[:vim][:bundle], 'vundle')
-    `vim +BundleInstall +qall`
+    system("vim +BundleInstall +qall > /dev/null 2&>1")
   end
 
   desc 'Installs all scripts from the vim directory.'
