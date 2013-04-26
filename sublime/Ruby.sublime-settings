@@ -6,7 +6,10 @@
 		"jsonify",
 		"Guardfile",
 		"ru",
-		"podspec"
+		"podspec",
+		"Podfile",
+		"Vagrantfile",
+		"Puppetfile"
 	],
 	"rulers":
 	[

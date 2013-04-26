@@ -46,7 +46,7 @@ if filereadable(expand('~/.vim/scripts/vundle.vim'))
 endif
 
 " NERDTree options
-let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$', '\.git$', '\.bundle$']
+let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$', '\.git$', '\.bundle$', '\.DS_Store']
 let NERDTreeShowHidden=1
 " Leader-n toggles NERDTree
 map <Leader>n :NERDTreeToggle<CR>
@@ -84,6 +84,7 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Syntastic options
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
+let g:syntastic_ruby_exec='ruby19'
 
 " Powerline options.
 let g:Powerline_symbols = 'fancy'

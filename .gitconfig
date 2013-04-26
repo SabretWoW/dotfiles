@@ -3,7 +3,8 @@
   email = ben@kree.gr
 
 [core]
-  excludesfile = ~/.gitignore.global
+excludesfile = /opt/boxen/config/git/gitignore
+	editor = /usr/local/bin/vim
 
 [color]
   ui = true
@@ -13,3 +14,6 @@
 
 [push]
   default = matching
+
+[credential]
+helper = /opt/boxen/bin/boxen-git-credential
