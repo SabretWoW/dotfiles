@@ -4,6 +4,7 @@ alias mkdir='mkdir -p'
 alias resource='source ~/.zshrc'
 alias m='mvim'
 alias s='subl'
+alias s3='subl3'
 alias gs='gst'
 
 alias uu='cd ~/Code/universal-uclick'

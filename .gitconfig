@@ -3,8 +3,8 @@
   email = ben@kree.gr
 
 [core]
-excludesfile = /opt/boxen/config/git/gitignore
-	editor = /usr/local/bin/vim
+  excludesfile = /opt/boxen/config/git/gitignore
+  editor = /opt/boxen/homebrew/bin/vim
 
 [color]
   ui = true

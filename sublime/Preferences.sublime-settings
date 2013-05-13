@@ -15,20 +15,16 @@
 		".sass-cache",
 		".idea",
 		".bundle",
-		".yardoc"
+		".yardoc",
+		".vagrant"
 	],
-	"font_face": "Source Code Pro for Powerline",
-	"font_size": 12.0,
+	"font_face": "Inconsolata for Powerline",
+	"font_size": 14.0,
 	"highlight_active_indent_guide": true,
 	"highlight_line": true,
 	"hot_exit": false,
 	"ignored_packages":
 	[
-		"SublimeBlockCursor",
-		"Vintageous",
-		"VintageEx",
-		"Gist",
-		"BeautifyRuby"
 	],
 	"remember_open_files": false,
 	"rulers":
