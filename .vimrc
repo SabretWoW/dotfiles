@@ -1,6 +1,7 @@
 " Turn off vi-compatibility mode.
 set nocompatible
 filetype off
+set shell=/bin/sh
 
 " Redefine the leader.
 let mapleader=","
@@ -60,6 +61,9 @@ function s:setWrapping()
 endfunction
 
 " Filetype mappings
+
+" Fish
+autocmd BufRead,BufNewFile *.fish set ft=fish
 
 " Gemfile/Rakefile/etc is Ruby
 autocmd BufRead,BufNewFile {Podfile,Gemfile,Rakefile,Thorfile,Vagrantfile,config.ru,*.rabl} set ft=ruby

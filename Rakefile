@@ -3,8 +3,8 @@ require 'fileutils'
 
 # Some helpful instance variables.
 @home = File.expand_path "~"
-@dir = File.expand_path(File.dirname(__FILE__))
-@dirs = {
+@dotfiles_path = File.expand_path(File.dirname(__FILE__))
+@paths = {
   vim: {
     bundle: File.join(@home, '.vim', 'bundle'),
     backup: File.join(@home, '.vim', 'backup'),
@@ -20,6 +20,9 @@ require 'fileutils'
   zsh: {
     scripts: File.join(@home, '.oh-my-zsh', 'custom'),
     themes: File.join(@home, '.oh-my-zsh', 'themes'),
+  },
+  fish: {
+    base: File.join(@home, '.config', 'fish'),
   },
   rbenv: {
     plugins: File.join(@home, '.rbenv', 'plugins'),
@@ -42,10 +45,10 @@ require 'fileutils'
 
 # Directory setup declarations.
 
-@dirs.each { |top,hash| hash.each { |k,v| directory @dirs[top][k] } }
+@paths.each { |top,hash| hash.each { |k,v| directory @paths[top][k] } }
 
 task default: :all
-task all: [:dotfiles, :vim, :zsh]
+task all: [:dotfiles, :vim, :fish]
 
 # Base-level tasks.
 
@@ -67,26 +70,26 @@ namespace :vim do
   task all: [:vundle, :scripts, :colors]
 
   desc 'Sets up Vim.'
-  task vundle: [:scripts, @dirs[:vim][:bundle], @dirs[:vim][:backup]] do
+  task vundle: [:scripts, @paths[:vim][:bundle], @paths[:vim][:backup]] do
     puts "Installing Vundle."
     manage_git "git://github.com/gmarik/vundle.git",
-               File.join(@dirs[:vim][:bundle], 'vundle')
+               File.join(@paths[:vim][:bundle], 'vundle')
     system("vim +BundleInstall +qall > /dev/null 2&>1")
   end
 
   desc 'Installs all scripts from the vim directory.'
-  task scripts: @dirs[:vim][:scripts] do
-    Dir.chdir File.join(@dir,'vim')
+  task scripts: @paths[:vim][:scripts] do
+    Dir.chdir File.join(@dotfiles_path,'vim')
     Dir['*.vim'].each do |f|
       puts "link_fileing custom Vim scripts."
-      link_file File.expand_path(f), File.join(@dirs[:vim][:scripts], f)
+      link_file File.expand_path(f), File.join(@paths[:vim][:scripts], f)
     end
   end
 
   desc 'Installs my color scheme(s).'
-  task colors: @dirs[:vim][:colors] do
+  task colors: @paths[:vim][:colors] do
     puts "Installing custom color scheme(s)."
-    destination = File.join(@dirs[:vim][:colors], 'benlight.vim')
+    destination = File.join(@paths[:vim][:colors], 'benlight.vim')
     `curl -sko #{destination} #{@urls[:benlight]}`
   end
 end
@@ -99,25 +102,25 @@ namespace :sublime2 do
 
   # This is nearly identical to my Vim plugin installer; maybe abstract?
   desc 'Install non-PackageManager plugins for sublime 2.'
-  task plugins: @dirs[:sublime2][:osx] do
+  task plugins: @paths[:sublime2][:osx] do
     puts "Cloning extra plugins for Sublime Text 2."
-    plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
-    Dir.chdir(@dirs[:sublime2][:osx])
+    plugins = load_yaml(File.join(@dotfiles_path, 'sublime.yml'), :plugins)
+    Dir.chdir(@paths[:sublime2][:osx])
     plugins.each do |author, repos|
       Array(repos).each do |repo|
         manage_git "https://github.com/#{author}/#{repo[0]}",
-                   File.join(@dirs[:sublime2][:osx], repo[1])
+                   File.join(@paths[:sublime2][:osx], repo[1])
       end
     end
   end
 
   desc 'Symlink sublime 2 settings.'
-  task settings: File.join(@dirs[:sublime2][:osx], 'User') do
+  task settings: File.join(@paths[:sublime2][:osx], 'User') do
     puts "Symlinking sublime 2 settings files."
-    Dir.chdir File.join(@dir, 'sublime')
+    Dir.chdir File.join(@dotfiles_path, 'sublime')
     Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
       link_file File.expand_path(f),
-                File.join(@dirs[:sublime2][:osx], 'User', f)
+                File.join(@paths[:sublime2][:osx], 'User', f)
     end
   end
 end
@@ -130,25 +133,25 @@ namespace :sublime3 do
 
   # This is nearly identical to my Vim plugin installer; maybe abstract?
   desc 'Install non-PackageManager plugins for sublime 3.'
-  task plugins: @dirs[:sublime3][:osx] do
+  task plugins: @paths[:sublime3][:osx] do
     puts "Cloning extra plugins for Sublime Text 3."
-    plugins = load_yaml(File.join(@dir, 'sublime.yml'), :plugins)
-    Dir.chdir(@dirs[:sublime3][:osx])
+    plugins = load_yaml(File.join(@dotfiles_path, 'sublime.yml'), :plugins)
+    Dir.chdir(@paths[:sublime3][:osx])
     plugins.each do |author, repos|
       Array(repos).each do |repo|
         manage_git "https://github.com/#{author}/#{repo[0]}",
-                   File.join(@dirs[:sublime3][:osx], repo[1])
+                   File.join(@paths[:sublime3][:osx], repo[1])
       end
     end
   end
 
   desc 'Symlink sublime 3 settings.'
-  task settings: File.join(@dirs[:sublime3][:osx], 'User') do
+  task settings: File.join(@paths[:sublime3][:osx], 'User') do
     puts "Symlinking sublime 3 settings files."
-    Dir.chdir File.join(@dir, 'sublime')
+    Dir.chdir File.join(@dotfiles_path, 'sublime')
     Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
       link_file File.expand_path(f),
-                File.join(@dirs[:sublime3][:osx], 'User', f)
+                File.join(@paths[:sublime3][:osx], 'User', f)
     end
   end
 end
@@ -168,20 +171,38 @@ namespace :zsh do
   end
 
   desc 'Install custom zsh scripts.'
-  task scripts: @dirs[:zsh][:scripts] do
+  task scripts: @paths[:zsh][:scripts] do
     puts "Symlinking in custom zsh scripts."
-    Dir.chdir File.join(@dir,'zsh')
+    Dir.chdir File.join(@dotfiles_path,'zsh')
     Dir['*'].reject { |e| e.match /^\./ }.each do |f|
-      link_file File.expand_path(f), File.join(@dirs[:zsh][:scripts], f)
+      link_file File.expand_path(f), File.join(@paths[:zsh][:scripts], f)
     end
   end
 
   desc 'Install custom zsh themes.'
-  task themes: @dirs[:zsh][:themes] do
+  task themes: @paths[:zsh][:themes] do
     puts "Symlinking in custom zsh themes."
-    Dir.chdir File.join(@dir, 'zsh-themes')
+    Dir.chdir File.join(@dotfiles_path, 'zsh-themes')
     Dir['*'].reject { |e| e.match /^\./ }.each do |f|
-      link_file File.expand_path(f), File.join(@dirs[:zsh][:themes], f)
+      link_file File.expand_path(f), File.join(@paths[:zsh][:themes], f)
+    end
+  end
+end
+
+# Zsh tasks.
+
+desc 'Run all fish tasks.'
+task fish: 'fish:all'
+
+namespace :fish do
+  task all: [:scripts]
+
+  desc 'Install custom fish scripts.'
+  task scripts: @paths[:fish][:base] do
+    puts "Symlinking in custom fish scripts."
+    Dir.chdir File.join(@dotfiles_path,'fish')
+    Dir['*'].reject { |e| e.match /^\./ }.each do |f|
+      link_file File.expand_path(f), File.join(@paths[:fish][:base], f)
     end
   end
 end
@@ -225,7 +246,7 @@ namespace :dropbox do
     puts "Symlinking minecraft texture packs."
     destination = File.join(@home, 'Library', 'Application Support', 'minecraft', 'texturepacks')
     debugger
-    link_file @dirs[:dropbox][:minecraft], destination
+    link_file @paths[:dropbox][:minecraft], destination
   end
 
   desc 'Symlink MultiMC instance directory.'
@@ -233,7 +254,7 @@ namespace :dropbox do
     puts "Symlinking minecraft instances."
     base = File.join('/Applications', 'MultiMC.app', 'Contents', 'Resources')
     %w(Instances Mods lwjgl).each do |dir|
-      link_file File.join(@dirs[:dropbox][:multimc], dir), File.join(base, dir.downcase)
+      link_file File.join(@paths[:dropbox][:multimc], dir), File.join(base, dir.downcase)
     end
   end
 end
