@@ -149,7 +149,7 @@ namespace :sublime3 do
   task settings: File.join(@paths[:sublime3][:osx], 'User') do
     puts "Symlinking sublime 3 settings files."
     Dir.chdir File.join(@dotfiles_path, 'sublime')
-    Dir['*.sublime-settings','*.sublime-keymap','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
+    Dir['*.sublime-settings','*.sublime-keymap','*.sublime-snippet','*.sublime-mousemap','*.sublime-build','*.py'].each do |f|
       link_file File.expand_path(f),
                 File.join(@paths[:sublime3][:osx], 'User', f)
     end
