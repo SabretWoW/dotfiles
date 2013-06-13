@@ -3,7 +3,7 @@ alias ls='ls -FlaGh'
 alias mkdir='mkdir -p'
 alias resource='source ~/.zshrc'
 alias m='mvim'
-alias s='subl'
+alias s='subl3'
 alias s3='subl3'
 alias gs='gst'
 
