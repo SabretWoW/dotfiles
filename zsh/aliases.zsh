@@ -7,8 +7,8 @@ alias s='subl3'
 alias s3='subl3'
 alias gs='gst'
 
-alias uu='cd ~/Code/universal-uclick'
-alias kreeger='cd ~/Code/kreeger'
+# alias uu='cd ~/Code/universal-uclick'
+# alias kreeger='cd ~/Code/kreeger'
 alias ftw='cd ~/Code/ftw'
 alias fs='foreman start'
 
