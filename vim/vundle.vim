@@ -1,4 +1,4 @@
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'

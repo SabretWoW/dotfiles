@@ -90,8 +90,8 @@ let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
 let g:syntastic_ruby_exec='ruby19'
 
-" Powerline options.
-let g:Powerline_symbols = 'fancy'
+" Airline options.
+let g:airline_powerline_fonts = 1
 
 " Mac OS X options.
 set clipboard=unnamed
