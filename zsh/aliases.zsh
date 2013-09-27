@@ -7,6 +7,7 @@ alias s='subl3'
 alias s3='subl3'
 alias gs='gst'
 alias gerp='grep'
+alias gcl='git clone'
 
 # alias uu='cd ~/Code/universal-uclick'
 # alias kreeger='cd ~/Code/kreeger'

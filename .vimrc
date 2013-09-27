@@ -2,6 +2,7 @@
 set nocompatible
 filetype off
 set shell=/bin/sh
+set hidden
 
 " Redefine the leader.
 let mapleader=","
@@ -46,13 +47,6 @@ if filereadable(expand('~/.vim/scripts/vundle.vim'))
   source ~/.vim/scripts/vundle.vim
 endif
 
-" NERDTree options
-let NERDTreeIgnore=['\.pyc$\', '\.rbc$', '\~$', '\.git$', '\.bundle$', '\.DS_Store']
-let NERDTreeShowHidden=1
-" Leader-n toggles NERDTree
-map <Leader>n :NERDTreeToggle<CR>
-let NERDTreeMouseMode=3
-
 " Special settings for Markdown.
 function s:setWrapping()
   set wrap
@@ -66,7 +60,7 @@ endfunction
 autocmd BufRead,BufNewFile *.fish set ft=fish
 
 " Gemfile/Rakefile/etc is Ruby
-autocmd BufRead,BufNewFile {Podfile,Gemfile,Rakefile,Thorfile,Vagrantfile,config.ru,*.rabl} set ft=ruby
+autocmd BufRead,BufNewFile {Podfile,Gemfile,Rakefile,Thorfile,Vagrantfile,config.ru,*.rabl,*.podspec,Podfile} set ft=ruby
 autocmd BufRead,BufNewFile *.{jsonify,builder,rabl} set ft=ruby
 
 " Custom text-wrapping options for filetypes
@@ -105,11 +99,16 @@ set directory=~/.vim/backup
 " Ctrl-C pops out of insert mode.
 cnoremap <C-c> <Esc>
 
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
 " For Ctrl-P!
 nmap ; :CtrlPBuffer<CR>
+map <Leader><Leader> :CtrlP<CR>
 
 map <Leader>wq :wq<CR>
 map <Leader>q :q!<CR>
+map <Leader>v :vs<CR>
+map <Leader>h :split<CR>
 
 map <F3> :vsplit<CR>
 map <F4> :nohl<CR>

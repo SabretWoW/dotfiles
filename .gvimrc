@@ -38,7 +38,3 @@ if has('gui_macvim')
   imap <Leader>= <Esc> <C-w>=
 endif
 
-" Load extra scripts, too.
-if filereadable(expand('~/.vim/scripts/nerdtree.vim'))
-  source ~/.vim/scripts/nerdtree.vim
-endif
