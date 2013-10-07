@@ -1,4 +1,4 @@
-set guifont=Inconsolata\ for\ Powerline:h14
+set guifont=Inconsolata-dz\ for\ Powerline:h12
 
 if has('gui_macvim')
   " Please don't beep.
