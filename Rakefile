@@ -36,7 +36,7 @@ require 'fileutils'
 
 @urls = {
   ohmyzsh: 'https://github.com/robbyrussell/oh-my-zsh',
-  benlight: 'https://raw.github.com/gist/1481851',
+  benlight: 'https://gist.github.com/kreeger/1481851/raw/benlight.vim',
   rbenv: {
     rbenv: 'https://github.com/sstephenson/rbenv',
     rubybuild: 'https://github.com/sstephenson/ruby-build',

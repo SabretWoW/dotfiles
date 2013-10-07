@@ -18,8 +18,8 @@
 		".yardoc",
 		".vagrant"
 	],
-	"font_face": "Inconsolata for Powerline",
-	"font_size": 14.0,
+	"font_face": "Inconsolata-dz for Powerline",
+	"font_size": 12.0,
 	"highlight_active_indent_guide": true,
 	"highlight_line": true,
 	"hot_exit": false,
