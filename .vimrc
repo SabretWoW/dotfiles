@@ -72,6 +72,9 @@ autocmd BufRead,BufNewFile *.json set ft=javascript
 " SASS is Sass.
 autocmd BufRead,BufNewFile *.{sass,scss} set ft=sass
 
+" Go.
+autocmd BufRead,BufNewFile *.{go} set ft=go
+
 " Now activate plugin and indention settings for whatever file is loaded
 filetype plugin indent on
 
